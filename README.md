@@ -150,8 +150,8 @@ Os casos de uso de cada implementação estão nos arquivos-fonte
 [casos-uso-rubro-negra.puml](./casos-uso-rubro-negra.puml), e também nas versões
 renderizadas:
 
-- [Diagrama de casos de uso — AVL](./out/casos-uso-avl/casos-uso-avl.svg)
-- [Diagrama de casos de uso — Rubro-Negra](./out/casos-uso-rubro-negra/casos-uso-rubro-negra.svg)
+- ![Diagrama de casos de uso — AVL](./out/casos-uso-avl/casos-uso-avl.svg)
+- ![Diagrama de casos de uso — Rubro-Negra](./out/casos-uso-rubro-negra/casos-uso-rubro-negra.svg)
 
 Os diagramas apresentam as operações da interface e os métodos internos de
 balanceamento de cada estrutura.
