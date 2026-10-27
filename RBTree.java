@@ -4,6 +4,7 @@ public class RBTree<T extends Comparable<T>> implements ITree<T> {
 
     private final RBNode<T> nil = new RBNode<>(null, BLACK);
     private RBNode<T> root = nil;
+    private long rotationCount;
 
     public RBTree() {
         nil.left = nil;
@@ -89,6 +90,28 @@ public class RBTree<T extends Comparable<T>> implements ITree<T> {
     }
 
     @Override
+    public int height() {
+        return height(root);
+    }
+
+    private int height(RBNode<T> node) {
+        if(node == nil) {
+            return 0;
+        }
+        return 1 + Math.max(height(node.left), height(node.right));
+    }
+
+    @Override
+    public long rotationCount() {
+        return rotationCount;
+    }
+
+    @Override
+    public void resetMetrics() {
+        rotationCount = 0;
+    }
+
+    @Override
     public void printInOrder() {
         printInOrder(root);
         System.out.println();
@@ -107,6 +130,23 @@ public class RBTree<T extends Comparable<T>> implements ITree<T> {
     public void printTree() {
         System.out.println("ROOT: " + nodeDescription(root));
         printTree(root, "");
+    }
+
+    @Override
+    public TreeSnapshot snapshot() {
+        return snapshot(root);
+    }
+
+    private TreeSnapshot snapshot(RBNode<T> node) {
+        if(node == nil) {
+            return null;
+        }
+        return new TreeSnapshot(
+            node.data.toString(),
+            node.color == RED,
+            snapshot(node.left),
+            snapshot(node.right)
+        );
     }
 
     private void printTree(RBNode<T> node, String prefix) {
@@ -151,6 +191,7 @@ public class RBTree<T extends Comparable<T>> implements ITree<T> {
     }
 
     private void rotateLeft(RBNode<T> node) {
+        rotationCount++;
         RBNode<T> right = node.right;
         node.right = right.left;
         if(right.left != nil) {
@@ -169,6 +210,7 @@ public class RBTree<T extends Comparable<T>> implements ITree<T> {
     }
 
     private void rotateRight(RBNode<T> node) {
+        rotationCount++;
         RBNode<T> left = node.left;
         node.left = left.right;
         if(left.right != nil) {

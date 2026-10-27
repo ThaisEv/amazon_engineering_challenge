@@ -1,0 +1,206 @@
+@startuml
+title Sistema de Arvores Balanceadas
+
+skinparam backgroundColor #170202
+skinparam shadowing false
+skinparam defaultFontColor white
+skinparam defaultFontName Arial
+skinparam class {
+    BackgroundColor #170202
+    BorderColor white
+    FontColor white
+    AttributeFontColor white
+    MethodFontColor white
+}
+skinparam interface {
+    BackgroundColor #170202
+    BorderColor white
+    FontColor white
+}
+skinparam note {
+    BackgroundColor #170202
+    BorderColor white
+    FontColor white
+}
+skinparam legend {
+    BackgroundColor #170202
+    BorderColor white
+    FontColor white
+}
+skinparam arrow {
+    Color white
+    FontColor white
+}
+skinparam stereotypeC {
+    FontColor white
+}
+
+interface "ITree<T>" as ITree {
+    +insert(data: T): ITree<T>
+    +remove(data: T): ITree<T>
+    +search(data: T): boolean
+    +isEmpty(): boolean
+    +height(): int
+    +rotationCount(): long
+    +resetMetrics(): void
+    +printInOrder(): void
+    +printTree(): void
+    +snapshot(): TreeSnapshot
+}
+
+class "AVLTree<T>" as AVLTree {
+    -root: Node<T>
+    -rotationCount: long
+    +insert(data: T): ITree<T>
+    +remove(data: T): ITree<T>
+    +search(data: T): boolean
+    +isEmpty(): boolean
+    +height(): int
+    +rotationCount(): long
+    +resetMetrics(): void
+    +printInOrder(): void
+    +printTree(): void
+    +snapshot(): TreeSnapshot
+    --
+    -insert(data: T, node: Node<T>): Node<T>
+    -remove(data: T, node: Node<T>): Node<T>
+    -getMax(node: Node<T>): T
+    -updateHeight(node: Node<T>): void
+    -balance(node: Node<T>): int
+    -applyRotations(node: Node<T>): Node<T>
+    -rotateLeft(node: Node<T>): Node<T>
+    -rotateRight(node: Node<T>): Node<T>
+}
+
+class "RBTree<T>" as RBTree {
+    {static} -RED: boolean
+    {static} -BLACK: boolean
+    {final} -nil: RBNode<T>
+    -root: RBNode<T>
+    -rotationCount: long
+    +RBTree()
+    +insert(data: T): ITree<T>
+    +remove(data: T): ITree<T>
+    +search(data: T): boolean
+    +isEmpty(): boolean
+    +height(): int
+    +rotationCount(): long
+    +resetMetrics(): void
+    +printInOrder(): void
+    +printTree(): void
+    +snapshot(): TreeSnapshot
+    --
+    -find(data: T): RBNode<T>
+    -minimum(node: RBNode<T>): RBNode<T>
+    -transplant(old, new): void
+    -fixAfterInsert(node: RBNode<T>): void
+    -fixAfterRemove(node: RBNode<T>): void
+    -rotateLeft(node: RBNode<T>): void
+    -rotateRight(node: RBNode<T>): void
+}
+
+class "Node<T>" as Node {
+    -data: T
+    -height: int
+    -leftChild: Node<T>
+    -rightChild: Node<T>
+}
+
+class "RBNode<T>" as RBNode <<private nested>> {
+    -data: T
+    -color: boolean
+    -left: RBNode<T>
+    -right: RBNode<T>
+    -parent: RBNode<T>
+}
+
+class TreeSnapshot {
+    -label: String
+    -annotation: String
+    -red: boolean
+    -left: TreeSnapshot
+    -right: TreeSnapshot
+    +TreeSnapshot(...)
+    +getLabel(): String
+    +getAnnotation(): String
+    +isRed(): boolean
+    +getLeft(): TreeSnapshot
+    +getRight(): TreeSnapshot
+}
+
+class MainTree {
+    +main(args: String[]): void
+}
+
+class ConsoleInterface {
+    -scanner: Scanner
+    -tree: ITree<Integer>
+    -treeName: String
+    +start(): void
+    -chooseTree(): void
+    -insert(): void
+    -remove(): void
+    -search(): void
+    -printInOrder(): void
+    -printTree(): void
+}
+
+class TreeGraphicalInterface {
+    -tree: ITree<Integer>
+    -canvas: TreeCanvas
+    -status: JLabel
+    -valueField: JTextField
+    -treeSelector: JComboBox<String>
+    +TreeGraphicalInterface()
+    +start(): void
+    -insert(event: ActionEvent): void
+    -remove(event: ActionEvent): void
+    -search(event: ActionEvent): void
+    -changeTree(): void
+    -clearTree(): void
+    -refreshView(): void
+}
+
+class AmazonDatabase {
+    -packageIds: Set<String>
+    +register(packageId: String): void
+    +contains(packageId: String): boolean
+    +remove(packageId: String): boolean
+    +all(): List<String>
+    +size(): int
+}
+
+class TreeComparisonTest {
+    {static} -DATASET_SIZE: int
+    +main(args: String[]): void
+    -runAllScenarios(): void
+}
+
+ITree <|.. AVLTree
+ITree <|.. RBTree
+AVLTree *-- Node : root
+RBTree *-- RBNode : root / nil
+TreeSnapshot *-- "0..1" TreeSnapshot : left / right
+MainTree --> TreeGraphicalInterface : inicia
+ConsoleInterface --> ITree : opera sobre
+TreeGraphicalInterface --> ITree : opera sobre
+TreeGraphicalInterface --> TreeSnapshot : renderiza
+TreeComparisonTest --> AmazonDatabase : popula
+TreeComparisonTest --> ITree : compara
+
+note right of AVLTree
+    Balanceamento por altura
+    e rotacoes simples/duplas
+end note
+
+note right of RBTree
+    Balanceamento por cores,
+    recoloracao e rotacoes
+end note
+
+legend right
+    Fundo: #170202
+    Texto e relacionamentos: branco
+endlegend
+
+@enduml

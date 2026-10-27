@@ -2,6 +2,7 @@
 
 public class AVLTree<T extends Comparable<T>> implements ITree<T> {
     private Node<T> root;
+    private long rotationCount;
 
     private Node<T> insert(T data, Node<T> node) {
         if(node == null) {
@@ -61,6 +62,21 @@ public class AVLTree<T extends Comparable<T>> implements ITree<T> {
         return this;
     }
 
+    @Override
+    public int height() {
+        return height(root);
+    }
+
+    @Override
+    public long rotationCount() {
+        return rotationCount;
+    }
+
+    @Override
+    public void resetMetrics() {
+        rotationCount = 0;
+    }
+
     private int height(Node<T> node) {
         return node == null ? 0 : node.getHeight();
     }
@@ -78,6 +94,7 @@ public class AVLTree<T extends Comparable<T>> implements ITree<T> {
     }
 
     private Node<T> rotateLeft(Node<T> node) {
+        rotationCount++;
         Node<T> rightNode = node.getRightChild();
         Node<T> leftNode = rightNode.getLeftChild();
         rightNode.setLeftChild(node);
@@ -88,6 +105,7 @@ public class AVLTree<T extends Comparable<T>> implements ITree<T> {
     }
 
     private Node<T> rotateRight(Node<T> node) {
+        rotationCount++;
         Node<T> leftNode = node.getLeftChild();
         Node<T> rightNode = leftNode.getRightChild();
         leftNode.setRightChild(node);
@@ -152,6 +170,24 @@ public class AVLTree<T extends Comparable<T>> implements ITree<T> {
     public void printTree() {
         System.out.println("ROOT: " + nodeDescription(root));
         printTree(root, "");
+    }
+
+    @Override
+    public TreeSnapshot snapshot() {
+        return snapshot(root);
+    }
+
+    private TreeSnapshot snapshot(Node<T> node) {
+        if(node == null) {
+            return null;
+        }
+        return new TreeSnapshot(
+            node.getData().toString(),
+            "h: " + node.getHeight(),
+            false,
+            snapshot(node.getLeftChild()),
+            snapshot(node.getRightChild())
+        );
     }
 
     private void printTree(Node<T> node, String prefix) {

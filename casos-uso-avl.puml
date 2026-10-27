@@ -1,0 +1,92 @@
+@startuml
+title Casos de uso - Arvore AVL
+
+left to right direction
+skinparam backgroundColor #170202
+skinparam shadowing false
+skinparam defaultFontColor white
+skinparam defaultFontName Arial
+skinparam actor {
+    BorderColor white
+    FontColor white
+}
+skinparam usecase {
+    BackgroundColor #170202
+    BorderColor white
+    FontColor white
+}
+skinparam rectangle {
+    BackgroundColor #170202
+    BorderColor white
+    FontColor white
+}
+skinparam arrow {
+    Color white
+    FontColor white
+}
+skinparam note {
+    BackgroundColor #170202
+    BorderColor white
+    FontColor white
+}
+
+actor Usuario
+
+rectangle "Sistema AVL" {
+    usecase "Inserir elemento" as Insert
+    usecase "Buscar elemento" as Search
+    usecase "Remover elemento" as Remove
+    usecase "Percorrer em ordem" as InOrder
+    usecase "Visualizar estrutura" as Print
+    usecase "Limpar estrutura" as Clear
+    usecase "Trocar tipo de árvore" as Change
+
+    usecase "search(data)" as SearchMethod
+    usecase "insert(data, node)" as InsertMethod
+    usecase "updateHeight(node)" as Height
+    usecase "applyRotations(node)" as Balance
+    usecase "rotateLeft(node)" as RotateLeft
+    usecase "rotateRight(node)" as RotateRight
+    usecase "remove(data, node)" as RemoveMethod
+    usecase "getMax(node)" as GetMax
+    usecase "printInOrder(node)" as InOrderMethod
+    usecase "printTree(node)" as PrintMethod
+}
+
+Usuario --> Insert
+Usuario --> Search
+Usuario --> Remove
+Usuario --> InOrder
+Usuario --> Print
+Usuario --> Clear
+Usuario --> Change
+
+Insert ..> SearchMethod : <<valida duplicata>>
+Insert ..> InsertMethod : <<include>>
+InsertMethod ..> Height : <<include>>
+InsertMethod ..> Balance : <<include>>
+Balance ..> RotateLeft : <<extend>>
+Balance ..> RotateRight : <<extend>>
+
+Search ..> SearchMethod : <<include>>
+
+Remove ..> SearchMethod : <<valida existencia>>
+Remove ..> RemoveMethod : <<include>>
+RemoveMethod ..> GetMax : <<quando ha 2 filhos>>
+RemoveMethod ..> Height : <<include>>
+RemoveMethod ..> Balance : <<include>>
+
+InOrder ..> InOrderMethod : <<include>>
+Print ..> PrintMethod : <<include>>
+
+note right of Balance
+    Preserva o balanceamento AVL
+    com rotacoes simples ou duplas.
+end note
+
+legend right
+    Fundo: #170202
+    Texto e relacionamentos: branco
+endlegend
+
+@enduml

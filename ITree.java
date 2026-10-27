@@ -8,7 +8,15 @@ public interface ITree<T extends Comparable<T>> {
 
     boolean isEmpty();
 
+    int height();
+
+    long rotationCount();
+
+    void resetMetrics();
+
     void printInOrder();
 
     void printTree();
+
+    TreeSnapshot snapshot();
 }

@@ -1,0 +1,101 @@
+@startuml
+title Casos de uso - Arvore Rubro-Negra
+
+left to right direction
+skinparam backgroundColor #170202
+skinparam shadowing false
+skinparam defaultFontColor white
+skinparam defaultFontName Arial
+skinparam actor {
+    BorderColor white
+    FontColor white
+}
+skinparam usecase {
+    BackgroundColor #170202
+    BorderColor white
+    FontColor white
+}
+skinparam rectangle {
+    BackgroundColor #170202
+    BorderColor white
+    FontColor white
+}
+skinparam arrow {
+    Color white
+    FontColor white
+}
+skinparam note {
+    BackgroundColor #170202
+    BorderColor white
+    FontColor white
+}
+
+actor Usuario
+
+rectangle "Sistema Rubro-Negro" {
+    usecase "Inserir elemento" as Insert
+    usecase "Buscar elemento" as Search
+    usecase "Remover elemento" as Remove
+    usecase "Percorrer em ordem" as InOrder
+    usecase "Visualizar estrutura\n(com cores)" as Print
+    usecase "Limpar estrutura" as Clear
+    usecase "Trocar tipo de árvore" as Change
+
+    usecase "search(data)" as SearchMethod
+    usecase "insert(data)" as InsertMethod
+    usecase "fixAfterInsert(node)" as FixInsert
+    usecase "rotateLeft(node)" as RotateLeft
+    usecase "rotateRight(node)" as RotateRight
+    usecase "remove(data)" as RemoveMethod
+    usecase "find(data)" as Find
+    usecase "minimum(node)" as Minimum
+    usecase "transplant(old, new)" as Transplant
+    usecase "fixAfterRemove(node)" as FixRemove
+    usecase "printInOrder(node)" as InOrderMethod
+    usecase "printTree(node)" as PrintMethod
+}
+
+Usuario --> Insert
+Usuario --> Search
+Usuario --> Remove
+Usuario --> InOrder
+Usuario --> Print
+Usuario --> Clear
+Usuario --> Change
+
+Insert ..> SearchMethod : <<valida duplicata>>
+Insert ..> InsertMethod : <<include>>
+InsertMethod ..> FixInsert : <<include>>
+FixInsert ..> RotateLeft : <<extend>>
+FixInsert ..> RotateRight : <<extend>>
+
+Search ..> SearchMethod : <<include>>
+
+Remove ..> SearchMethod : <<valida existencia>>
+Remove ..> RemoveMethod : <<include>>
+RemoveMethod ..> Find : <<include>>
+RemoveMethod ..> Minimum : <<quando ha 2 filhos>>
+RemoveMethod ..> Transplant : <<include>>
+RemoveMethod ..> FixRemove : <<quando remove no preto>>
+FixRemove ..> RotateLeft : <<extend>>
+FixRemove ..> RotateRight : <<extend>>
+
+InOrder ..> InOrderMethod : <<include>>
+Print ..> PrintMethod : <<include>>
+
+note right of FixInsert
+    Recolore e rotaciona para preservar
+    as propriedades Rubro-Negras.
+end note
+
+note right of FixRemove
+    Corrige a arvore apos remover
+    um no preto.
+end note
+
+legend right
+    Fundo: #170202
+    Texto e relacionamentos: branco
+endlegend
+
+@enduml
