@@ -182,5 +182,6 @@ implementação e pelos resultados apresentados.
 - CORMEN, T. H. et al. **Algoritmos: Teoria e Prática**. 3. ed. Rio de
   Janeiro: Elsevier, 2012.
 - PROJECT LOMBOK. **Project Lombok**. Disponível em: https://projectlombok.org/. Acesso em: 27 out. 2026.
+- YOUTUBE. AVL Tree Explained and Implemented in Java . Disponível em: https://www.youtube.com/watch?v=Jj9Mit24CWk. Acesso em: 27 out. 2026.
 - ZIVIANI, N. **Projeto de Algoritmos com implementações em Java e C++**. São
   Paulo: Thomson Learning, 2007.
