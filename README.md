@@ -150,10 +150,10 @@ Os casos de uso de cada implementação estão nos arquivos-fonte
 [casos-uso-rubro-negra.puml](./casos-uso-rubro-negra.puml), e também nas versões
 renderizadas:
 
-Diagrama de casos de uso — AVL
+**Diagrama de casos de uso — AVL**
 ![Diagrama de casos de uso — AVL](./out/casos-uso-avl/casos-uso-avl.svg)
 
-Diagrama de casos de uso — Rubro-Negra
+**Diagrama de casos de uso — Rubro-Negra**
 ![Diagrama de casos de uso — Rubro-Negra](./out/casos-uso-rubro-negra/casos-uso-rubro-negra.svg)
 
 Os diagramas apresentam as operações da interface e os métodos internos de
@@ -175,13 +175,13 @@ implementação e pelos resultados apresentados.
 
 ## Ferramentas Utilizadas
 
-- Java 21 — linguagem de programação.
-- Project Lombok — biblioteca que reduz código repetitivo (boilerplate), gerando automaticamente métodos como getters, setters e construtores por meio de anotações
+- **Java 21**, linguagem de programação.
+- **Project Lombok**, biblioteca que reduz código repetitivo (boilerplate), gerando automaticamente métodos como getters, setters e construtores por meio de anotações
 
 ## Referências
 
 - CORMEN, T. H. et al. **Algoritmos: Teoria e Prática**. 3. ed. Rio de
   Janeiro: Elsevier, 2012.
-- PROJECT LOMBOK. Project Lombok. Disponível em: https://projectlombok.org/. Acesso em: 27 out. 2026.
+- PROJECT LOMBOK. **Project Lombok**. Disponível em: https://projectlombok.org/. Acesso em: 27 out. 2026.
 - ZIVIANI, N. **Projeto de Algoritmos com implementações em Java e C++**. São
   Paulo: Thomson Learning, 2007.
