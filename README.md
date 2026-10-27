@@ -142,8 +142,7 @@ copiados, evitando misturar estados de implementações diferentes.
 
 O diagrama UML do projeto está disponível no arquivo-fonte
 [projeto.puml](./projeto.puml) e na versão renderizada
-[projeto.svg](./out/projeto/projeto.svg). Ele usa fundo `#170202` e texto
-branco para facilitar a visualização em modo escuro.
+![projeto.svg](./out/projeto/projeto.svg).
 
 Os casos de uso de cada implementação estão nos arquivos-fonte
 [casos-uso-avl.puml](./casos-uso-avl.puml) e
